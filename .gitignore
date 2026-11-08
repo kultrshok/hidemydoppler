@@ -1,0 +1,10 @@
+# runtime output / scratch
+Cleaned videos/
+Program/work/
+**/__pycache__/
+*.pyc
+.venv/
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
