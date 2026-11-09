@@ -1,5 +1,10 @@
 # hidemydoppler
 
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
+![Python 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)
+![Local only](https://img.shields.io/badge/data-stays%20on%20your%20machine-success.svg)
+
 **A local, privacy-first tool that scrubs location clues out of your phone videos
 before you share them.**
 
@@ -58,7 +63,12 @@ design, measurements, and limitations.
 
 ## Status & honesty
 
-v0.1, personal project. The cleaner reduces (and in testing largely erases) the
+v1.0. Personal project. The cleaner reduces (and in testing largely erases) the
 tonal evidence, but no scrubber can *guarantee* unrecoverability against every
 possible matcher. The Audacity plug-ins are algorithm-validated but not yet tested
 inside Audacity. Not affiliated with anyone; use at your own risk.
+
+## License
+
+MIT — see [LICENSE](LICENSE). © 2026 kultrshok.
+Use at your own risk; no warranty.

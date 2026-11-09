@@ -1,7 +1,7 @@
 # hidemydoppler — Technical Whitepaper
 
 **A privacy tool that defeats acoustic Doppler geolocation of phone videos.**
-Version 0.1 · November 2026
+Version 1.0 · November 2026
 
 ---
 

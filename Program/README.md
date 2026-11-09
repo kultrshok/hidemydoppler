@@ -1,4 +1,4 @@
-# hidemydoppler v0.1 — Modules 1 + 2
+# hidemydoppler v1.0 — Modules 1 + 2
 
 ## Quick start
 - **Windows:** double-click **Launch hidemydoppler.cmd**. It checks for Python, numpy, scipy and
@@ -58,7 +58,7 @@ don't measure the Doppler curve.
   `preserve` (cleanest sound but weakens privacy - a quiet tone stays coherent).
 - `--smooth-frames` temporal smoothing of the noise bed in STFT frames (default 7).
 
-## Known limits (v0.1)
+## Known limits (v1.0)
 - Whole file processed in memory (fine for a few minutes of audio).
 - Audio is re-encoded to AAC 192k when cleaning video.
 - Loudness shifts ~1-2 dB; an audible tone keeps most of its level (~-4 dB on its peak).

@@ -20,13 +20,14 @@ import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, unquote, urlparse
 
-VERSION = "0.1"
+VERSION = "1.0"
 HERE = os.path.dirname(os.path.abspath(__file__))
 ASSETS = os.path.join(HERE, "assets")
 # Friendly output location: when the code lives in a "Program" subfolder, put
 # cleaned files in a "Cleaned videos" folder next to it (where users will look);
 # otherwise keep them beside the code.
 _ROOT = os.path.dirname(HERE) if os.path.basename(HERE).lower() == "program" else HERE
+APP_DIR = _ROOT          # the hidemydoppler folder the uninstaller removes
 WORK = os.path.join(_ROOT, "Cleaned videos")
 os.makedirs(WORK, exist_ok=True)
 sys.path.insert(0, HERE)
@@ -129,6 +130,56 @@ def run_protect(level):
     return out
 
 
+def _launch_uninstaller(keep_videos):
+    """Write a detached self-deleting uninstaller, launch it, and return a note.
+
+    It waits a few seconds for this server to exit (freeing the working dir),
+    then removes the app tree. 'Cleaned videos' is kept unless keep_videos is
+    False. Python/ffmpeg and pip packages are never touched."""
+    app = APP_DIR
+    import tempfile
+    td = tempfile.gettempdir()
+    if os.name == "nt":
+        vids = "" if keep_videos else f'rmdir /s /q "{app}\\Cleaned videos"\r\n'
+        script = (
+            "@echo off\r\n"
+            "timeout /t 3 /nobreak >nul\r\n"
+            f'cd /d "{td}"\r\n'
+            f'rmdir /s /q "{app}\\Program"\r\n'
+            f'rmdir /s /q "{app}\\Guides"\r\n'
+            f'del /f /q "{app}\\Launch hidemydoppler.cmd" "{app}\\Read Me First.pdf" '
+            f'"{app}\\README.md" "{app}\\.gitignore" "{app}\\WHITEPAPER.pdf" 2>nul\r\n'
+            f"{vids}"
+            f'rmdir "{app}" 2>nul\r\n'
+            '(goto) 2>nul & del "%~f0"\r\n'
+        )
+        path = os.path.join(td, "hmd_uninstall.bat")
+        with open(path, "w") as f:
+            f.write(script)
+        DETACHED, NEWGROUP = 0x00000008, 0x00000200
+        subprocess.Popen(["cmd", "/c", path], creationflags=DETACHED | NEWGROUP,
+                         close_fds=True, cwd=td)
+    else:
+        vids = "" if keep_videos else f'rm -rf "{app}/Cleaned videos"\n'
+        script = (
+            "#!/bin/bash\n"
+            "sleep 3\n"
+            f'rm -rf "{app}/Program" "{app}/Guides"\n'
+            f'rm -f "{app}/Launch hidemydoppler.cmd" "{app}/Read Me First.pdf" '
+            f'"{app}/README.md" "{app}/.gitignore" "{app}/WHITEPAPER.pdf"\n'
+            f"{vids}"
+            f'rmdir "{app}" 2>/dev/null\n'
+            'rm -- "$0"\n'
+        )
+        path = os.path.join(td, "hmd_uninstall.sh")
+        with open(path, "w") as f:
+            f.write(script)
+        os.chmod(path, 0o755)
+        subprocess.Popen(["/bin/bash", path], start_new_session=True,
+                         close_fds=True, cwd=td)
+    return app
+
+
 class H(BaseHTTPRequestHandler):
     def log_message(self, *a):
         pass
@@ -201,6 +252,13 @@ class H(BaseHTTPRequestHandler):
                 self._json({"ok": True, "pid": os.getpid()})
                 if SERVER is not None:
                     threading.Thread(target=SERVER.shutdown, daemon=True).start()
+            elif u.path == "/api/uninstall":
+                keep = q.get("keep_videos", ["1"])[0] != "0"
+                app = _launch_uninstaller(keep)
+                self._json({"ok": True, "app_dir": app, "kept_videos": keep})
+                # Give the response time to flush, then stop so the folder frees.
+                if SERVER is not None:
+                    threading.Timer(0.8, SERVER.shutdown).start()
             elif u.path == "/api/install":
                 if not INSTALL["running"]:
                     threading.Thread(target=_install_job, daemon=True).start()
@@ -341,6 +399,8 @@ box-shadow:0 10px 34px rgba(0,0,0,.55);gap:12px}
 #tip .who{color:var(--twig);font-weight:700;font-size:11px;letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px}
 #tip .sig{color:var(--mute);font-size:11px;margin-top:7px}
 #aidisc{position:fixed;right:11px;bottom:8px;z-index:5;font-size:11px;color:#55607a;opacity:.72;pointer-events:none;letter-spacing:.3px}
+section.danger{border-color:#512329}section.danger h2{color:#e68a8a}
+button.danger{background:#3a1d22;color:#ef9a9a;border-color:#5a2a30}button.danger:hover:not(:disabled){background:#4a2329;border-color:var(--bad)}
 </style></head><body>
 <header><img class="mascot" src="/assets/twig.png" alt="Twig">
 <div><h1>hidemydoppler</h1><span class="tag">local privacy pass &middot; narrated by Twig</span></div>
@@ -381,6 +441,12 @@ box-shadow:0 10px 34px rgba(0,0,0,.55);gap:12px}
 <button id="playOrig" disabled>Play original</button><span id="rsSt" class="status"></span>
 <span id="score1" class="score"></span></div>
 <div id="meta1" class="meta"></div><div id="tbl1"></div><div id="player"></div></section>
+<section class="wide danger"><h2>Uninstall</h2>
+<div class="row"><label><input type="checkbox" id="keepvids" checked> Keep my cleaned videos</label>
+<button id="uninstall" class="danger tiptrigger" data-tip="uninstall" disabled>Uninstall hidemydoppler</button>
+<span id="uninSt" class="status"></span></div>
+<label class="meta" style="display:block;margin-top:8px"><input type="checkbox" id="uninConfirm"> I understand this removes hidemydoppler from this computer. This can't be undone.</label>
+</section>
 </main>
 <div id="aidisc">generated with AI</div>
 <div id="tip"><img src="/assets/twig-sign.png" alt="Twig"><div><div class="who">Twig says</div><div class="body"></div><div class="sig">&mdash; Twig</div></div></div>
@@ -399,6 +465,8 @@ const TIPS={
      geek:"Gentle mask (offset 8 dB, SPL 95) with phase_mode=preserve: masked bins keep their original phase for pristine audio, but a reduced-magnitude steady tone stays partly coherent, so a determined matcher may still recover the curve. Best fidelity, partial privacy by design — hence ~50%."},
  L4:{plain:"The vault. I throw everything at hiding the jet so the location trick just fails, then make it sound as good as I can afterward. Reach for me when privacy beats audio quality, every time.",
      geek:"Aggressive mask (offset 2 dB, SPL 80) + noise-phase substitution + 9-frame smoothing + full metadata scrub + de-tinny. Flattens and decorrelates the Doppler ridge so curve-matching has nothing to lock onto. ('100%' is the goal, not a lab-measured guarantee — no scrubber can promise that.)"},
+ uninstall:{plain:"This removes hidemydoppler from your computer - the program and the guides. I keep your \"Cleaned videos\" unless you untick the box. I do NOT remove Python or ffmpeg, since other programs may use them (take those out from Windows\u2019 normal uninstall if you want). This can\u2019t be undone.",
+     geek:"Writes a detached self-deleting uninstaller to the temp dir, shuts down this local server (freeing the working directory), waits ~3s, then removes the app tree (Program/, Guides/, launcher, docs) and the folder itself. Keeps 'Cleaned videos' unless unchecked. Never touches the Python interpreter, ffmpeg, or pip packages."},
  geek:{plain:"Flip me on and these notes turn into the full technical details — parameters and the why behind each level. Flip back any time.",
      geek:"Geek mode ON. Tooltips now show DSP parameters and the threat-model rationale. Click to go back to plain language."}
 };
@@ -468,6 +536,16 @@ $('rescan').onclick=async()=>{busy('rsSt','scanning...');try{const r=await api('
   catch(e){busy('rsSt',e.message)}};
 $('playOrig').onclick=async()=>{const r=await api('/api/rescan?which=original');renderReport(r,1);
   busy('rsSt','showing original');play('original',!/\.(wav|mp3|m4a|flac|ogg)$/i.test(r.file))};
+$('uninConfirm').onchange=()=>{$('uninstall').disabled=!$('uninConfirm').checked;};
+$('uninstall').onclick=async()=>{
+  if(!confirm('Remove hidemydoppler from this computer now?'+($('keepvids').checked?'\n\nYour "Cleaned videos" folder will be kept.':'\n\nYour "Cleaned videos" folder will ALSO be deleted.')))return;
+  $('uninstall').disabled=true;busy('uninSt','uninstalling...');
+  try{const j=await api('/api/uninstall?keep_videos='+($('keepvids').checked?'1':'0'),{method:'POST'});
+    document.body.innerHTML='<div style="max-width:560px;margin:14vh auto;text-align:center;font:15px/1.6 system-ui;color:#d8dde6">'
+      +'<img src="/assets/twig-heart.png" style="width:120px"><h2>hidemydoppler is uninstalling</h2>'
+      +'<p>The program is removing itself'+(j.kept_videos?' (your cleaned videos were kept)':' and your cleaned videos')+'. '
+      +'You can close this tab.</p><p style="color:#8590a2;font-size:12px">Thanks for letting Twig help.</p></div>';
+  }catch(e){busy('uninSt',e.message);$('uninstall').disabled=false;}};
 wireTips();
 </script></body></html>"""
 
