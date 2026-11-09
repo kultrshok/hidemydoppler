@@ -1,11 +1,11 @@
-# hidemydoppler v1.0 — Modules 1 + 2
+# Scrubgnome v1.0 — Modules 1 + 2
 
 ## Quick start
-- **Windows:** double-click **Launch hidemydoppler.cmd**. It checks for Python, numpy, scipy and
+- **Windows:** double-click **Launch Scrubgnome.cmd**. It checks for Python, numpy, scipy and
   ffmpeg (approve the one admin prompt), installs anything missing, then opens the app automatically.
 - **Linux:** in the `Program/` folder, `./prepare_linux.sh` (or `--yes`), then `python3 ui.py`.
 
-**Folder layout (what users see):** `Launch hidemydoppler.cmd` + `Read Me First.pdf` at top; `Guides/` (user guide, install help, whitepaper, Audacity add-ons); `Cleaned videos/` (output, created on first run); `Program/` (all code, this README, `hmd/`, `assets/`, `sample.mp4`).
+**Folder layout (what users see):** `Launch Scrubgnome.cmd` + `Read Me First.pdf` at top; `Guides/` (user guide, install help, whitepaper, Audacity add-ons); `Cleaned videos/` (output, created on first run); `Program/` (all code, this README, `hmd/`, `assets/`, `sample.mp4`).
 
 Privacy pass for phone videos. Needs Python 3.9+, numpy, scipy, ffmpeg/ffprobe on PATH.
 New to Python? See INSTALL_PYTHON.md.

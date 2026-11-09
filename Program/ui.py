@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""hidemydoppler local UI - stdlib only.
+"""Scrubgnome local UI - stdlib only.
 
   python ui.py            # opens http://127.0.0.1:8765
   python ui.py --port N   # different port
@@ -27,7 +27,7 @@ ASSETS = os.path.join(HERE, "assets")
 # cleaned files in a "Cleaned videos" folder next to it (where users will look);
 # otherwise keep them beside the code.
 _ROOT = os.path.dirname(HERE) if os.path.basename(HERE).lower() == "program" else HERE
-APP_DIR = _ROOT          # the hidemydoppler folder the uninstaller removes
+APP_DIR = _ROOT          # the Scrubgnome folder the uninstaller removes
 WORK = os.path.join(_ROOT, "Cleaned videos")
 os.makedirs(WORK, exist_ok=True)
 sys.path.insert(0, HERE)
@@ -147,7 +147,7 @@ def _launch_uninstaller(keep_videos):
             f'cd /d "{td}"\r\n'
             f'rmdir /s /q "{app}\\Program"\r\n'
             f'rmdir /s /q "{app}\\Guides"\r\n'
-            f'del /f /q "{app}\\Launch hidemydoppler.cmd" "{app}\\Read Me First.pdf" '
+            f'del /f /q "{app}\\Launch Scrubgnome.cmd" "{app}\\Read Me First.pdf" '
             f'"{app}\\README.md" "{app}\\.gitignore" "{app}\\WHITEPAPER.pdf" 2>nul\r\n'
             f"{vids}"
             f'rmdir "{app}" 2>nul\r\n'
@@ -165,7 +165,7 @@ def _launch_uninstaller(keep_videos):
             "#!/bin/bash\n"
             "sleep 3\n"
             f'rm -rf "{app}/Program" "{app}/Guides"\n'
-            f'rm -f "{app}/Launch hidemydoppler.cmd" "{app}/Read Me First.pdf" '
+            f'rm -f "{app}/Launch Scrubgnome.cmd" "{app}/Read Me First.pdf" '
             f'"{app}/README.md" "{app}/.gitignore" "{app}/WHITEPAPER.pdf"\n'
             f"{vids}"
             f'rmdir "{app}" 2>/dev/null\n'
@@ -211,7 +211,7 @@ class H(BaseHTTPRequestHandler):
             elif u.path.startswith("/assets/"):
                 self._asset(u.path[len("/assets/"):])
             elif u.path == "/api/ping":
-                self._json({"app": "hidemydoppler", "version": VERSION,
+                self._json({"app": "scrubgnome", "version": VERSION,
                             "pid": os.getpid(), "port": CONFIG["port"]})
             elif u.path == "/api/prep":
                 self._json(run_prep())
@@ -346,7 +346,7 @@ class H(BaseHTTPRequestHandler):
 
 PAGE = r"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>hidemydoppler</title>
+<title>Scrubgnome</title>
 <style>
 :root{--bg:#0f1115;--panel:#171a21;--line:#262b36;--fg:#d8dde6;--mute:#8590a2;
 --acc:#5fb3ff;--ok:#4cc38a;--warn:#e6b450;--bad:#ef6b6b;--twig:#5fbf3f}
@@ -403,7 +403,7 @@ section.danger{border-color:#512329}section.danger h2{color:#e68a8a}
 button.danger{background:#3a1d22;color:#ef9a9a;border-color:#5a2a30}button.danger:hover:not(:disabled){background:#4a2329;border-color:var(--bad)}
 </style></head><body>
 <header><img class="mascot" src="/assets/twig.png" alt="Twig">
-<div><h1>hidemydoppler</h1><span class="tag">local privacy pass &middot; narrated by Twig</span></div>
+<div><h1>Scrubgnome</h1><span class="tag">local video privacy scrubber &middot; narrated by Twig</span></div>
 <button id="geek" class="tiptrigger" data-tip="geek"><img src="/assets/twig-science.png">Geek mode: off</button>
 </header>
 <main>
@@ -443,9 +443,9 @@ button.danger{background:#3a1d22;color:#ef9a9a;border-color:#5a2a30}button.dange
 <div id="meta1" class="meta"></div><div id="tbl1"></div><div id="player"></div></section>
 <section class="wide danger"><h2>Uninstall</h2>
 <div class="row"><label><input type="checkbox" id="keepvids" checked> Keep my cleaned videos</label>
-<button id="uninstall" class="danger tiptrigger" data-tip="uninstall" disabled>Uninstall hidemydoppler</button>
+<button id="uninstall" class="danger tiptrigger" data-tip="uninstall" disabled>Uninstall Scrubgnome</button>
 <span id="uninSt" class="status"></span></div>
-<label class="meta" style="display:block;margin-top:8px"><input type="checkbox" id="uninConfirm"> I understand this removes hidemydoppler from this computer. This can't be undone.</label>
+<label class="meta" style="display:block;margin-top:8px"><input type="checkbox" id="uninConfirm"> I understand this removes Scrubgnome from this computer. This can't be undone.</label>
 </section>
 </main>
 <div id="aidisc">generated with AI</div>
@@ -465,7 +465,7 @@ const TIPS={
      geek:"Gentle mask (offset 8 dB, SPL 95) with phase_mode=preserve: masked bins keep their original phase for pristine audio, but a reduced-magnitude steady tone stays partly coherent, so a determined matcher may still recover the curve. Best fidelity, partial privacy by design — hence ~50%."},
  L4:{plain:"The vault. I throw everything at hiding the jet so the location trick just fails, then make it sound as good as I can afterward. Reach for me when privacy beats audio quality, every time.",
      geek:"Aggressive mask (offset 2 dB, SPL 80) + noise-phase substitution + 9-frame smoothing + full metadata scrub + de-tinny. Flattens and decorrelates the Doppler ridge so curve-matching has nothing to lock onto. ('100%' is the goal, not a lab-measured guarantee — no scrubber can promise that.)"},
- uninstall:{plain:"This removes hidemydoppler from your computer - the program and the guides. I keep your \"Cleaned videos\" unless you untick the box. I do NOT remove Python or ffmpeg, since other programs may use them (take those out from Windows\u2019 normal uninstall if you want). This can\u2019t be undone.",
+ uninstall:{plain:"This removes Scrubgnome from your computer - the program and the guides. I keep your \"Cleaned videos\" unless you untick the box. I do NOT remove Python or ffmpeg, since other programs may use them (take those out from Windows\u2019 normal uninstall if you want). This can\u2019t be undone.",
      geek:"Writes a detached self-deleting uninstaller to the temp dir, shuts down this local server (freeing the working directory), waits ~3s, then removes the app tree (Program/, Guides/, launcher, docs) and the folder itself. Keeps 'Cleaned videos' unless unchecked. Never touches the Python interpreter, ffmpeg, or pip packages."},
  geek:{plain:"Flip me on and these notes turn into the full technical details — parameters and the why behind each level. Flip back any time.",
      geek:"Geek mode ON. Tooltips now show DSP parameters and the threat-model rationale. Click to go back to plain language."}
@@ -538,11 +538,11 @@ $('playOrig').onclick=async()=>{const r=await api('/api/rescan?which=original');
   busy('rsSt','showing original');play('original',!/\.(wav|mp3|m4a|flac|ogg)$/i.test(r.file))};
 $('uninConfirm').onchange=()=>{$('uninstall').disabled=!$('uninConfirm').checked;};
 $('uninstall').onclick=async()=>{
-  if(!confirm('Remove hidemydoppler from this computer now?'+($('keepvids').checked?'\n\nYour "Cleaned videos" folder will be kept.':'\n\nYour "Cleaned videos" folder will ALSO be deleted.')))return;
+  if(!confirm('Remove Scrubgnome from this computer now?'+($('keepvids').checked?'\n\nYour "Cleaned videos" folder will be kept.':'\n\nYour "Cleaned videos" folder will ALSO be deleted.')))return;
   $('uninstall').disabled=true;busy('uninSt','uninstalling...');
   try{const j=await api('/api/uninstall?keep_videos='+($('keepvids').checked?'1':'0'),{method:'POST'});
     document.body.innerHTML='<div style="max-width:560px;margin:14vh auto;text-align:center;font:15px/1.6 system-ui;color:#d8dde6">'
-      +'<img src="/assets/twig-heart.png" style="width:120px"><h2>hidemydoppler is uninstalling</h2>'
+      +'<img src="/assets/twig-heart.png" style="width:120px"><h2>Scrubgnome is uninstalling</h2>'
       +'<p>The program is removing itself'+(j.kept_videos?' (your cleaned videos were kept)':' and your cleaned videos')+'. '
       +'You can close this tab.</p><p style="color:#8590a2;font-size:12px">Thanks for letting Twig help.</p></div>';
   }catch(e){busy('uninSt',e.message);$('uninstall').disabled=false;}};
@@ -562,22 +562,22 @@ def _port_busy(port):
 
 
 def _ping(port):
-    """Identify a hidemydoppler instance on `port`, else None.
+    """Identify a Scrubgnome instance on `port`, else None.
 
     Tries /api/ping (this version). Falls back to sniffing the root page's title
     so that OLDER instances, which predate /api/ping, are still recognised."""
     try:
         with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/ping", timeout=0.6) as r:
             info = json.loads(r.read().decode())
-            if info.get("app") == "hidemydoppler":
+            if info.get("app") == "scrubgnome":
                 return info
     except Exception:
         pass
     try:  # older build: no ping endpoint, but its page says who it is
         with urllib.request.urlopen(f"http://127.0.0.1:{port}/", timeout=0.6) as r:
             head = r.read(600).decode("utf-8", "ignore").lower()
-            if "<title>hidemydoppler" in head:
-                return {"app": "hidemydoppler", "version": "older", "pid": None}
+            if "<title>scrubgnome" in head:
+                return {"app": "scrubgnome", "version": "older", "pid": None}
     except Exception:
         pass
     return None
@@ -593,7 +593,7 @@ def _ask_shutdown(port):
 
 
 def reap_old_instances(base, span=20, warn_only=False):
-    """Find older hidemydoppler instances on base..base+span and stop them
+    """Find older Scrubgnome instances on base..base+span and stop them
     (or just warn). Returns a list of human-readable notes."""
     notes = []
     for p in range(base, base + span):
@@ -605,7 +605,7 @@ def reap_old_instances(base, span=20, warn_only=False):
         pid = info.get("pid")
         tag = f"port {p} ({'pid ' + str(pid) + ', ' if pid else ''}version {info.get('version')})"
         if warn_only:
-            notes.append(f"WARNING: older hidemydoppler still running on {tag}")
+            notes.append(f"WARNING: older Scrubgnome still running on {tag}")
             continue
         if _ask_shutdown(p):
             for _ in range(20):                     # wait up to ~4 s to free up
@@ -631,7 +631,7 @@ def main():
     CONFIG["hide_prep"] = a.launched_from_prep
 
     # Retire any older copies first so the fresh UI owns the expected port and a
-    # browser never shows a stale version. Only confirmed hidemydoppler instances
+    # browser never shows a stale version. Only confirmed Scrubgnome instances
     # are touched; anything else on a port is left alone.
     for note in reap_old_instances(a.port, warn_only=a.warn_old):
         print(note)
@@ -658,7 +658,7 @@ def main():
     CONFIG["port"] = port
     url = f"http://127.0.0.1:{port}"
     note = "" if port == a.port else f"  (port {a.port} was busy)"
-    print(f"hidemydoppler UI on {url}{note}  (Ctrl+C to stop)")
+    print(f"Scrubgnome UI on {url}{note}  (Ctrl+C to stop)")
     if not a.no_browser:
         threading.Timer(0.8, lambda: webbrowser.open(url)).start()
     try:

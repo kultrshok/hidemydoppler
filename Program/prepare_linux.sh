@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# hidemydoppler - Prepare System (Linux CLI)
+# Scrubgnome - Prepare System (Linux CLI)
 # Installs python3 (>=3.9), numpy, scipy and ffmpeg, then runs setup_check.py.
 #   ./prepare_linux.sh          # asks before installing
 #   ./prepare_linux.sh --yes    # no questions
@@ -13,7 +13,7 @@ warn() { printf '\033[1;33m!!\033[0m %s\n' "$*"; }
 run()  { printf '   $ %s\n' "$*"; "$@"; }
 
 if [[ $YES -eq 0 ]]; then
-  read -r -p "Install hidemydoppler prerequisites (python3, numpy, scipy, ffmpeg)? [y/N] " a
+  read -r -p "Install Scrubgnome prerequisites (python3, numpy, scipy, ffmpeg)? [y/N] " a
   [[ "$a" =~ ^[Yy] ]] || { echo "Cancelled."; exit 1; }
 fi
 

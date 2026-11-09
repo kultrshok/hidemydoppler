@@ -3,7 +3,7 @@
 ;type process
 ;name "Jet Flyover Suppressor..."
 ;action "Ducking aircraft flyovers..."
-;info "hidemydoppler - detects aircraft flyovers and ducks them.\nSame detector as 'Label Jet Flyovers'; here it lowers the level during a\nflyover instead of labelling it. Start gentle and listen - it is a broadband\nduck, so it dims everything while the jet passes. For the full privacy pass\n(strip faint tones + metadata) use the hidemydoppler app."
+;info "Scrubgnome - detects aircraft flyovers and ducks them.\nSame detector as 'Label Jet Flyovers'; here it lowers the level during a\nflyover instead of labelling it. Start gentle and listen - it is a broadband\nduck, so it dims everything while the jet passes. For the full privacy pass\n(strip faint tones + metadata) use the Scrubgnome app."
 
 ;control reduce "Reduction during flyover (dB)" real "" 12 0 36
 ;control thresh "Flyover sensitivity: dB above baseline" real "" 4 0 20

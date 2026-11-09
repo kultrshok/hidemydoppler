@@ -1,4 +1,4 @@
-# hidemydoppler — User Guide
+# Scrubgnome — User Guide
 
 *Meet Twig. He helps you scrub hidden location clues out of your phone videos
 before you share them.*
@@ -7,24 +7,27 @@ before you share them.*
 
 ## What problem does this solve?
 
-When you record a video outside, your phone often picks up faint aircraft noise you
-barely notice. The pitch of a plane passing overhead changes as it flies (the same
-effect you hear when a siren goes by). It turns out that pitch change, matched
-against public flight-tracking data, can reveal **where you were standing** — down
-to about a city block, sometimes from less than a minute of audio.
+A video can quietly give away **where it was filmed** in two ways.
 
-Your video *file* also stores hidden tags: the time you recorded, your GPS
-coordinates, and your phone model.
+First, the file stores hidden tags: the time you recorded, your GPS coordinates, and
+your phone model.
 
-**hidemydoppler removes both** — the hidden tags, and the faint plane sounds — so a
-clip is much harder to trace back to you. Everything happens **on your own
-computer**. Nothing is uploaded anywhere.
+Second, the *sound* can give you away. The clever example Scrubgnome was built around:
+when you record outside, your phone often picks up faint aircraft noise you barely
+notice. The pitch of a plane passing overhead changes as it flies (the same effect you
+hear when a siren goes by), and that pitch change, matched against public
+flight-tracking data, can reveal where you were standing — down to about a city block,
+sometimes from less than a minute of audio.
+
+**Scrubgnome removes both** — the hidden tags, and the location-revealing sounds — so a
+clip is much harder to trace back to you. Everything happens **on your own computer**.
+Nothing is uploaded anywhere.
 
 ---
 
 ## Part 1 — What the launcher does to your computer
 
-Double-clicking **Launch hidemydoppler.cmd** (Windows) runs a one-time setup, then
+Double-clicking **Launch Scrubgnome.cmd** (Windows) runs a one-time setup, then
 opens the app. Here is exactly what it touches:
 
 **It asks for administrator rights once.** You'll see the standard Windows
@@ -63,7 +66,7 @@ no quality loss. A "leak score" shows you how exposed the file was before and af
 
 **2. It erases the sounds you can't hear.** The plane tones the tracking trick needs
 are mostly *below what your ears notice* — buried under voices, wind and traffic.
-hidemydoppler finds those inaudible bits and replaces them with smooth, even
+Scrubgnome finds those inaudible bits and replaces them with smooth, even
 background hiss. Your voice and the sounds you *can* hear are left alone, and a
 final "warmth" pass keeps everything sounding natural instead of thin or tinny.
 
@@ -74,7 +77,7 @@ matched to a flight path.
 
 ## Part 3 — How to use the program
 
-1. **Launch it.** Double-click **Launch hidemydoppler.cmd**. The app opens in your
+1. **Launch it.** Double-click **Launch Scrubgnome.cmd**. The app opens in your
    web browser (it runs privately on your own computer).
 2. **Load a file.** Click **Choose video/audio** and pick your clip. You'll see a
    table of the hidden tags it found and a leak score.
@@ -111,7 +114,7 @@ can **find** aircraft flyovers for you — one labels them, one quietly lowers t
 volume. See `audacity/README.md` to install them.
 
 Audacity can't open phone `.mp4` files on its own without extra setup. Easiest fix:
-in hidemydoppler, load your clip and click **Export WAV for Audacity** — that makes
+in Scrubgnome, load your clip and click **Export WAV for Audacity** — that makes
 a plain audio file Audacity opens with no fuss.
 
 ---
@@ -122,4 +125,4 @@ a plain audio file Audacity opens with no fuss.
   normal.
 - If the sound ever seems off, try a different level, or open **Advanced** for
   manual dials.
-- Everything stays on your computer. hidemydoppler never uploads your videos.
+- Everything stays on your computer. Scrubgnome never uploads your videos.

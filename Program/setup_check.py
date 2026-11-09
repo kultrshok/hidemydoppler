@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""hidemydoppler system prep: checks and installs prerequisites.
+"""Scrubgnome system prep: checks and installs prerequisites.
 
   python setup_check.py          # check, ask before installing anything
   python setup_check.py --yes    # install missing items without asking
@@ -161,7 +161,7 @@ def main():
     ap.add_argument("--check", action="store_true", help="report only")
     args = ap.parse_args()
 
-    print(f"hidemydoppler prep on {platform.system()} {platform.release()}\n")
+    print(f"Scrubgnome prep on {platform.system()} {platform.release()}\n")
     results = [check_python()]
     if results[0]:
         results += [check_pip_pkgs(args), check_ffmpeg(args)]

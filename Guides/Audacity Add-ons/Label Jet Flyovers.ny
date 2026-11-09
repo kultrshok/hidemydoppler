@@ -3,7 +3,7 @@
 ;type analyze
 ;name "Label Jet Flyovers..."
 ;action "Scanning for aircraft flyovers..."
-;info "hidemydoppler - marks spans where an aircraft flyover dominates.\nSelect the whole track (or a region) and run; adds one label per flyover.\nThis FLAGS flyovers so you know where to clean. It does not measure them."
+;info "Scrubgnome - marks spans where an aircraft flyover dominates.\nSelect the whole track (or a region) and run; adds one label per flyover.\nThis FLAGS flyovers so you know where to clean. It does not measure them."
 
 ;; A jet flyover has a telltale shape: a slow swell of low-frequency roar
 ;; (engine + broadband turbulence, mostly below ~500 Hz) that rises over a

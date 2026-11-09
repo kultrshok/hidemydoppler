@@ -1,6 +1,6 @@
 <#
-  hidemydoppler - Prepare System (Windows)
-  Installs everything hidemydoppler needs on a bare Windows 10/11 box:
+  Scrubgnome - Prepare System (Windows)
+  Installs everything Scrubgnome needs on a bare Windows 10/11 box:
     Python 3 (python.org installer, all users, on PATH), numpy + scipy, ffmpeg.
   No winget or Python required. Works in Windows PowerShell 5.1+.
 
@@ -50,7 +50,7 @@ function Refresh-Path {
 function Get-File([string]$url, [string]$dest, [int]$step, [string]$label) {
     # Streamed download with progress reported to the status bar.
     $req = [Net.HttpWebRequest]::Create($url)
-    $req.UserAgent = 'hidemydoppler-prepare'
+    $req.UserAgent = 'Scrubgnome-prepare'
     $resp = $req.GetResponse()
     $total = $resp.ContentLength
     $in = $resp.GetResponseStream()
@@ -155,7 +155,7 @@ function Install-Ffmpeg {
 function Invoke-Prepare {
     New-Item -ItemType Directory -Force -Path $Tmp | Out-Null
     $ok = $true
-    Log '== hidemydoppler: Prepare System =='
+    Log '== Scrubgnome: Prepare System =='
     Log ''
     Log '[1/4] Python 3.9+'
     Status 1 'Checking for Python...'
@@ -200,7 +200,7 @@ function Invoke-Prepare {
 
     Remove-Item $Tmp -Recurse -Force -ErrorAction SilentlyContinue
     Log ''
-    Log $(if ($ok) { 'All set. Click "Launch hidemydoppler".' } else { 'Finished with problems - see above.' })
+    Log $(if ($ok) { 'All set. Click "Launch Scrubgnome".' } else { 'Finished with problems - see above.' })
     return @{ ok = $ok; py = $py }
 }
 
@@ -236,12 +236,12 @@ $mute = [Drawing.Color]::FromArgb(133, 144, 162); $ink = [Drawing.Color]::FromAr
 $okC = [Drawing.Color]::FromArgb(76, 195, 138); $badC = [Drawing.Color]::FromArgb(239, 107, 107)
 
 $f = New-Object Windows.Forms.Form
-$f.Text = 'hidemydoppler'; $f.ClientSize = New-Object Drawing.Size(680, 540)
+$f.Text = 'Scrubgnome'; $f.ClientSize = New-Object Drawing.Size(680, 540)
 $f.StartPosition = 'CenterScreen'; $f.BackColor = $bg; $f.ForeColor = $fg
 $f.Font = New-Object Drawing.Font('Segoe UI', 10); $f.FormBorderStyle = 'FixedSingle'; $f.MaximizeBox = $false
 
 $title = New-Object Windows.Forms.Label
-$title.Text = 'hidemydoppler'; $title.Font = New-Object Drawing.Font('Segoe UI Semibold', 16)
+$title.Text = 'Scrubgnome'; $title.Font = New-Object Drawing.Font('Segoe UI Semibold', 16)
 $title.AutoSize = $true; $title.Location = New-Object Drawing.Point(22, 16)
 $sub = New-Object Windows.Forms.Label
 $sub.Text = 'Checks for Python, numpy, scipy and ffmpeg, installs anything missing, then launches the app. Windows will ask for admin rights.'
@@ -258,7 +258,7 @@ function New-Btn($text, $x, $primary) {
 }
 $btn = New-Btn 'Check + launch' 24 $true
 if (-not (Test-Admin)) { $btn.Text = 'Check + launch  (admin)' }
-$launch = New-Btn 'Launch hidemydoppler' 256 $false; $launch.Enabled = $false
+$launch = New-Btn 'Launch Scrubgnome' 256 $false; $launch.Enabled = $false
 
 $box = New-Object Windows.Forms.TextBox
 $box.Multiline = $true; $box.ReadOnly = $true; $box.ScrollBars = 'Vertical'
@@ -314,7 +314,7 @@ function Finish([bool]$ok, [string]$pyStr) {
     Remove-Item $script:logPath -Force -ErrorAction SilentlyContinue
     if ($ok -and $script:PyCmd) {
         # Success: launch the app and close this window (this is the whole point).
-        $stepL.Text = 'Done'; $msgL.Text = 'Launching hidemydoppler...'
+        $stepL.Text = 'Done'; $msgL.Text = 'Launching Scrubgnome...'
         [System.Windows.Forms.Application]::DoEvents()
         Start-Sleep -Milliseconds 600
         Start-Hmd | Out-Null
@@ -377,7 +377,7 @@ $launch.Add_Click({ Start-Hmd | Out-Null; $f.Close() })
 $f.Add_FormClosing({
     if ($script:proc -and -not $script:proc.HasExited) {
         $r = [Windows.Forms.MessageBox]::Show('Setup is still running. Stop it and close?',
-                                               'hidemydoppler', 'YesNo', 'Warning')
+                                               'Scrubgnome', 'YesNo', 'Warning')
         if ($r -ne 'Yes') { $_.Cancel = $true; return }
         try { $script:proc.Kill() } catch {}
     }

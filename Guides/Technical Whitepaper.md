@@ -1,21 +1,23 @@
-# hidemydoppler — Technical Whitepaper
+# Scrubgnome — Technical Whitepaper
 
-**A privacy tool that defeats acoustic Doppler geolocation of phone videos.**
+**A local, private video scrubber that strips location-revealing metadata and audio from videos.**
 Version 1.0 · November 2026
 
 ---
 
 ## Abstract
 
-Short phone videos can leak the location where they were recorded through an
-unexpected channel: the faint sound of aircraft passing overhead. The pitch of a
-flyover shifts as the plane moves (the Doppler effect), and that pitch-versus-time
-curve can be matched against public flight-tracking (ADS-B) data plus terrain to
-place a recording to roughly 100 metres — sometimes from under a minute of audio.
-`hidemydoppler` is a modular, local-only tool that removes the signals this attack
-relies on: identifying metadata, and the sub-audible aircraft tones in the audio.
-It runs entirely on the user's machine, treats each defense as a swappable module,
-and ships with a one-click launcher, a browser UI, and optional Audacity helpers.
+Videos can leak the location where they were recorded in two ways: hidden file
+metadata (GPS, timestamp, device) and location-revealing background sound.
+`Scrubgnome` is a modular, local-only tool that removes both. Its headline capability
+is defeating a specific and under-appreciated attack: acoustic Doppler geolocation,
+where the pitch of an aircraft flyover shifts as the plane moves (the Doppler effect)
+and that pitch-versus-time curve is matched against public flight-tracking (ADS-B)
+data plus terrain to place a recording to roughly 100 metres — sometimes from under a
+minute of audio. Scrubgnome strips the metadata and suppresses the sub-audible
+aircraft tones that make this possible, treats each defense as a swappable module, and
+ships with a one-click launcher, a browser UI, and optional Audacity helpers. It runs
+entirely on the user's machine; nothing is uploaded.
 
 ---
 
@@ -39,7 +41,7 @@ The attack needs three things, and removing **any** of them degrades it:
 - **(b)** an approximate recording time (to pull the right flight data),
 - **(c)** access to ADS-B history (outside the defender's control).
 
-`hidemydoppler` attacks (a) and (b).
+`Scrubgnome` attacks (a) and (b).
 
 ## 2. Threat model & design principles
 
@@ -168,7 +170,7 @@ Audacity** on this build.
 - **`setup_check.py`** — verifies Python 3.9+, numpy, scipy, ffmpeg/ffprobe (+AAC
   encoder); offers installs across winget/choco/scoop, brew, apt, dnf (EPEL + RPM
   Fusion + CRB on RHEL/Rocky), pacman.
-- **`prepare_windows.ps1` + `Launch hidemydoppler.cmd`** — a no-Python-required
+- **`prepare_windows.ps1` + `Launch Scrubgnome.cmd`** — a no-Python-required
   Windows launcher. It self-elevates (one UAC prompt), checks/installs Python
   (python.org silent, all-users, on PATH), numpy/scipy (pip), and ffmpeg (gyan.dev
   build into `Program Files\ffmpeg\bin` + system PATH), streams progress to a dark
@@ -196,5 +198,5 @@ Audacity** on this build.
 
 ---
 
-*hidemydoppler is a personal privacy project. It processes everything locally and
+*Scrubgnome is a personal privacy project. It processes everything locally and
 sends nothing anywhere.*

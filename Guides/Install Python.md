@@ -1,11 +1,11 @@
-# How to install Python (for hidemydoppler)
+# How to install Python (for Scrubgnome)
 
-> **Shortcut:** on Windows, just double-click **Prepare System.cmd** in the hidemydoppler
+> **Shortcut:** on Windows, just double-click **Prepare System.cmd** in the Scrubgnome
 > folder and click **Prepare system**. It installs Python and everything else for you.
 > On Linux, run `./prepare_linux.sh`. The manual steps below are for when that doesn't work.
 
-hidemydoppler needs **Python 3.9 or newer**. Get the newest 3.x release you can. Pick your
-system below, then jump to **Verify** and **Run hidemydoppler**.
+Scrubgnome needs **Python 3.9 or newer**. Get the newest 3.x release you can. Pick your
+system below, then jump to **Verify** and **Run Scrubgnome**.
 
 ---
 
@@ -78,9 +78,9 @@ You should see `Python 3.9` or higher. On Windows, `py --version` also works.
 
 ---
 
-## Run hidemydoppler
+## Run Scrubgnome
 
-1. Unzip or copy the `hidemydoppler` folder somewhere handy.
+1. Unzip or copy the `Scrubgnome` folder somewhere handy.
 2. Open a terminal **in that folder**.
    - Windows: open the folder in File Explorer, click the address bar, type `cmd`, press Enter.
    - macOS / Linux: `cd` to the folder.
@@ -89,7 +89,7 @@ You should see `Python 3.9` or higher. On Windows, `py --version` also works.
    python ui.py        # Windows
    python3 ui.py       # macOS / Linux
    ```
-4. Your browser opens the hidemydoppler page. Click **Run prep check**. If anything is missing
+4. Your browser opens the Scrubgnome page. Click **Run prep check**. If anything is missing
    (numpy, scipy, ffmpeg), click **Install missing** and approve any admin or password
    prompt that pops up.
 

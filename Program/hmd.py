@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""hidemydoppler - privacy pass for phone videos (Modules 1 + 2).
+"""Scrubgnome - privacy pass for phone videos (Modules 1 + 2).
 
   python3 hmd.py report  in.mp4             # list metadata leaks
   python3 hmd.py scrub   in.mp4 out.mp4 [--fake-time ISO]
