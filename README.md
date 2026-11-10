@@ -28,6 +28,11 @@ uploaded.
 
 New to Python? See **`Guides/Install Python`**. Full walkthrough: **`Read Me First.pdf`**.
 
+**On your phone?** Use the mobile edition,
+**[Scrubgnome Away from Home](https://github.com/kultrshok/scrubgnome-afh)**. There's an Android app,
+and a web version for iPhone that runs in Safari:
+**[kultrshok.github.io/scrubgnome-afh](https://kultrshok.github.io/scrubgnome-afh/)**.
+
 ## What it does
 
 - **Strips metadata** — time, GPS and device tags, with no quality loss.
@@ -36,6 +41,23 @@ New to Python? See **`Guides/Install Python`**. Full walkthrough: **`Read Me Fir
   sounds natural).
 - **Four one-click levels** — from *metadata only* to *max privacy* — each explained
   in plain language (with a geek-mode toggle) by Twig, the mascot.
+
+## Mobile edition: Scrubgnome Away from Home
+
+Twig's pocket edition, for scrubbing a clip right on the phone that shot it:
+**[github.com/kultrshok/scrubgnome-afh](https://github.com/kultrshok/scrubgnome-afh)**
+
+| | Desktop Scrubgnome (this repo) | Scrubgnome Away from Home |
+|---|---|---|
+| Runs on | Windows, macOS, Linux | Android 10+ (app) · iPhone / any browser ([web app](https://kultrshok.github.io/scrubgnome-afh/)) |
+| Strips metadata (GPS, time, device, hidden data tracks) | Yes | Yes, lossless, no re-encode |
+| Checks for inaudible tracking tones (17.5–22 kHz) | Removes them (Levels 2–4) | Warns only |
+| Erases aircraft Doppler tones | Yes (Levels 2–4) | No, use the desktop app |
+| Uploads anything | Never | Never (the Android app has no internet permission; the web app is locked from sending data) |
+
+Rule of thumb: the mobile edition is **Level 1 in your pocket**. If its tone check flags
+something, or the clip was filmed outdoors under a flight path, run it through desktop
+Scrubgnome at Level 2 or higher before posting.
 
 ## Repo layout
 

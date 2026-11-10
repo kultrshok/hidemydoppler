@@ -119,6 +119,31 @@ a plain audio file Audacity opens with no fuss.
 
 ---
 
+## Part 5 — Away from home: the mobile edition
+
+Not at your computer? Twig has a pocket edition, **Scrubgnome Away from Home**, for
+scrubbing a clip right on the phone that shot it.
+
+- **iPhone (or any phone or computer):** open
+  **kultrshok.github.io/scrubgnome-afh** in Safari, then tap **Share → Add to Home
+  Screen**. It works like an app, even offline.
+- **Android:** install the app from the **Releases** or **Actions** page at
+  **github.com/kultrshok/scrubgnome-afh**.
+
+**What it does:** pick a video and it removes the hidden tags (time, GPS, phone model,
+and hidden data tracks), with no quality loss. It saves a clean copy with a random
+name, ready to post. It can also **listen for inaudible tracking tones**: high-pitched
+beacons some ads use, too high for people to hear. If it hears one, it warns you.
+
+**What it doesn't do:** it doesn't clean the audio. It won't erase airplane sounds or
+remove the tones it finds. Think of it as **Level 1 in your pocket**. If the tone check
+warns you, or you filmed outdoors with planes overhead, run the clip through this
+desktop app at Level 2 or higher before you share it.
+
+Like the desktop app, it never uploads your video. Everything happens on your phone.
+
+---
+
 ## Quick tips
 
 - Cleaning a long clip uses a fair bit of memory and takes a little time — that's
@@ -126,3 +151,4 @@ a plain audio file Audacity opens with no fuss.
 - If the sound ever seems off, try a different level, or open **Advanced** for
   manual dials.
 - Everything stays on your computer. Scrubgnome never uploads your videos.
+- On the go? The mobile edition (Part 5) handles the hidden tags from your phone.
